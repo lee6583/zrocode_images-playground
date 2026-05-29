@@ -1,7 +1,7 @@
 {
-  "name": "Zrocode Image",
-  "short_name": "Zrocode",
-  "description": "Zrocode Image 图像生成工作台",
+  "name": "ZROCODE 图片在线生成",
+  "short_name": "ZROCODE",
+  "description": "ZROCODE 图片在线生成",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
