@@ -7,6 +7,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="ZROCODE 图片在线生成" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem('gpt-image-playground.theme') === 'dark' ? 'dark' : 'light';
+          document.documentElement.classList.toggle('dark', theme === 'dark');
+          document.documentElement.style.colorScheme = theme;
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#09090b' : '#ffffff');
+        } catch (error) {}
+      })();
+    </script>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="apple-touch-icon" href="./logo.png" />
     <link rel="icon" href="./logo.png" type="image/png" />

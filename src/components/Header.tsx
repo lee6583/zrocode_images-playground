@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../store'
+import { useThemeMode } from '../hooks/useThemeMode'
 import { useTooltip } from '../hooks/useTooltip'
 import { dismissAllTooltips } from '../lib/tooltipDismiss'
 import ViewportTooltip from './ViewportTooltip'
 import HelpModal from './HelpModal'
 import HistoryModal from './HistoryModal'
-import { EditIcon, HelpCircleIcon, HistoryIcon, InstallIcon, SettingsIcon } from './icons'
+import { EditIcon, HelpCircleIcon, HistoryIcon, InstallIcon, MoonIcon, SettingsIcon, SunIcon } from './icons'
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>
@@ -82,6 +83,8 @@ export default function Header() {
   const installTooltip = useTooltip()
   const helpTooltip = useTooltip()
   const settingsTooltip = useTooltip()
+  const themeTooltip = useTooltip()
+  const { theme, toggleTheme } = useThemeMode()
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (event: Event) => {
@@ -210,6 +213,29 @@ export default function Header() {
             </button>
           </div>
           <div className="flex items-center gap-1 shrink-0">
+            <div
+              className="relative"
+              {...themeTooltip.handlers}
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  dismissAllTooltips()
+                  toggleTheme()
+                }}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+                aria-label={theme === 'dark' ? '切换到白天样式' : '切换到黑色样式'}
+              >
+                {theme === 'dark' ? (
+                  <SunIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                ) : (
+                  <MoonIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                )}
+              </button>
+              <ViewportTooltip visible={themeTooltip.visible} className="whitespace-nowrap">
+                {theme === 'dark' ? '白天样式' : '黑色样式'}
+              </ViewportTooltip>
+            </div>
             {!isPwaInstalled && (
               <div
                 className="relative"
